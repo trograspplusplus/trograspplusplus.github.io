@@ -69,5 +69,95 @@
   </div>
 </section>
 
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" loop playsinline height="100%" controls class="video-with-border">
+        <source src="./static/assets/teaser.mp4" type="video/mp4">
+      </video>      
+    </div>
+  </div>
+</section>
+
+<section class="teaser image">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/assets/teaser.png" alt="Teaser Image" style="width:100%; height:auto;">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Dexterous grasping in cluttered scenes remains a central challenge in robotic manipulation, 
+            as it requires high-dimensional hand coordination under complex object-environment constraints. 
+            To address this problem, we introduce one of the largest simulation benchmarks to date, 
+            comprising around 0.5B grasp annotations across eight dexterous hands and approximately 50K objects. 
+            Further, we propose \(\small \mathcal{T}(R,O)\) Grasp++, a scalable diffusion-based framework for cross-embodiment 
+            dexterous grasp synthesis in cluttered environments. Extensive experiments demonstrate that our model 
+            significantly outperforms existing baselines, achieving an average success rate of 88% across eight 
+            dexterous hands. Meanwhile, our pipeline achieves only 0.3s inference latency while improving 
+            inference sample efficiency by over 10 times.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</section>
+
+<section class="pipeline">
+  <h2 class="title is-3 has-text-centered">Method Overview</h2>
+  <div class="container is-max-desktop">
+    <div class="hero-body" style="padding-top: 10px; padding-bottom: 10px;">
+      <img src="./static/assets/pipeline.png" alt="Teaser Image" style="width:100%; height:auto;">
+      <p>
+        <strong>Overview of \(\small \mathcal{T(R,O)}\) Grasp++:</strong> We define \(\small \mathcal{T(R,O)}\) Graph++ to capture 
+        spatial relations among target object, surrounding environment, and arbitrary dexterous hand. We then apply a graph 
+        diffusion model to generate link-wise \(\small SE(3)\) poses.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Real World. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Real-world Results</h2>
+        <div class="content has-text-centered">
+
+          <h3 style="margin-bottom: 8px; font-size: 1.2rem; color: #444;">
+            XHand: 85%
+          </h3>
+          
+          <div style="margin-bottom: 20px;">
+            <video autoplay muted loop playsinline style="width:100%; height:auto;">
+              <source src="./static/assets/xhand.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <h3 style="margin-bottom: 8px; font-size: 1.2rem; color: #444;">
+            LEAP Hand: 82%
+          </h3>
+          <div>
+            <video autoplay muted loop playsinline style="width:100%; height:auto;">
+              <source src="./static/assets/leaphand.mp4" type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Real World. -->
+  </div>
+</section>
+
 </body>
 </html>
