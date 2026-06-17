@@ -125,6 +125,201 @@
   </div>
 </section>
 
+<!-- model-viewer -->
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<!-- ========================= -->
+<!-- Simulation Results -->
+<!-- ========================= -->
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column">
+        <h2 class="title is-3 has-text-centered">Simulation Results</h2>
+      </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="mesh-control">
+      <div class="mesh-label">
+        Mesh ID: <span id="mesh-id-label">0</span>
+      </div>
+
+      <input
+        type="range"
+        id="mesh-id-slider"
+        min="0"
+        max="4"
+        value="0"
+        step="1"
+      >
+    </div>
+
+    <!-- 2 rows x 4 columns -->
+    <div class="hand-grid" id="hand-grid"></div>
+
+  </div>
+</section>
+
+<style>
+  .mesh-control {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .mesh-label {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  #mesh-id-slider {
+    display: block;
+    width: 260px;
+    margin: 10px auto 0 auto;
+  }
+
+  .hand-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .hand-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hand-viewer {
+    width: 200px;
+    height: 200px;
+    border: 3px solid #66c0ff;
+    border-radius: 15px;
+    background-color: #f8f8f8;
+  }
+
+  .hand-card p {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  @media screen and (max-width: 900px) {
+    .hand-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 520px) {
+    .hand-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+</style>
+
+<script>
+  const hands = [
+    {
+      folder: "allegro_hand",
+      name: "Allegro Hand",
+      alt: "Allegro Hand"
+    },
+    {
+      folder: "ability_hand",
+      name: "Ability Hand",
+      alt: "Ability Hand"
+    },
+    {
+      folder: "barrett_hand",
+      name: "Barrett Hand",
+      alt: "Barrett Hand"
+    },
+    {
+      folder: "dclaw_gripper",
+      name: "DClaw Gripper",
+      alt: "DClaw Gripper"
+    },
+    {
+      folder: "leaphand",
+      name: "LEAP Hand",
+      alt: "LEAP Hand"
+    },
+    {
+      folder: "shadow_hand",
+      name: "Shadow Hand",
+      alt: "Shadow Hand"
+    },
+    {
+      folder: "schunk_hand",
+      name: "Schunk Hand",
+      alt: "Schunk Hand"
+    },
+    {
+      folder: "xhand",
+      name: "XHand",
+      alt: "XHand"
+    }
+  ];
+
+  const meshSlider = document.getElementById("mesh-id-slider");
+  const meshLabel = document.getElementById("mesh-id-label");
+  const handGrid = document.getElementById("hand-grid");
+
+  function getMeshPath(folder, meshId) {
+    return `./static/assets/meshes/${folder}/${meshId}.glb`;
+  }
+
+  function createHandCards(meshId = 0) {
+    handGrid.innerHTML = "";
+
+    hands.forEach(hand => {
+      const card = document.createElement("div");
+      card.className = "hand-card";
+
+      card.innerHTML = `
+        <model-viewer
+          class="hand-viewer"
+          data-folder="${hand.folder}"
+          src="${getMeshPath(hand.folder, meshId)}"
+          alt="${hand.alt}"
+          camera-orbit="180deg 0deg 105%"
+          camera-target="0m 0m 0m"
+          min-camera-orbit="auto 0deg auto"
+          max-camera-orbit="auto 180deg auto"
+          camera-controls
+          ar>
+        </model-viewer>
+        <p>${hand.name}</p>
+      `;
+
+      handGrid.appendChild(card);
+    });
+  }
+
+  function updateMesh(meshId) {
+    meshLabel.textContent = meshId;
+
+    const viewers = document.querySelectorAll(".hand-viewer");
+
+    viewers.forEach(viewer => {
+      const folder = viewer.dataset.folder;
+      viewer.src = getMeshPath(folder, meshId);
+    });
+  }
+
+  createHandCards(0);
+
+  meshSlider.addEventListener("input", function () {
+    updateMesh(this.value);
+  });
+</script>
+
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Real World. -->
